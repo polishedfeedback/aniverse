@@ -13,7 +13,7 @@ import (
 // func GetAnimeByID(id int) (*models.Anime, error)
 
 // func GetAnimeRecommendations(id int) ([]models.Anime, error)
-// func GetGenres() ([]models.Genre, error)
+
 // func GetAnimeByGenre(genreID int) ([]models.Anime, error)
 
 // Helper functions
@@ -67,4 +67,15 @@ func GetSeasonalAnime() ([]models.Anime, error) {
 	}
 
 	return result.Data, nil
+}
+
+// GetGenre returns the anime genre
+func GetGenres() ([]models.Genre, error) {
+	url := fmt.Sprintf("%s/genres/anime", config.JikanBaseURL)
+	var result []models.Genre
+	err := Fetch(url, &result)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
