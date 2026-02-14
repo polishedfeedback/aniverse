@@ -87,7 +87,7 @@ func GetAnimeRecommendations(id int) ([]models.Recommendation, error) {
 
 // GetAnimeByGenre takes in a genre and returns the anime for that genre
 func GetAnimeByGenre(genreID int) ([]models.Anime, error) {
-	url := fmt.Sprintf("%s/anime?genres=%d", config.JikanBaseURL, genreID)
+	url := fmt.Sprintf("%s/anime?genre=%d", config.JikanBaseURL, genreID)
 	var result models.AnimeListResponse
 	err := Fetch(url, &result)
 	if err != nil {

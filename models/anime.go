@@ -85,3 +85,7 @@ type RecommendationResponse struct {
 type GenreListResponse struct {
 	Data []Genre `json:"data"`
 }
+
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
