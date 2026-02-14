@@ -10,12 +10,6 @@ import (
 	"github.com/polishedfeedback/aniverse/models"
 )
 
-// func GetAnimeByID(id int) (*models.Anime, error)
-
-// func GetAnimeRecommendations(id int) ([]models.Anime, error)
-
-// func GetAnimeByGenre(genreID int) ([]models.Anime, error)
-
 // Helper functions
 // Fetch fetches the data and returns back the response
 func Fetch(url string, target any) error {
@@ -72,10 +66,43 @@ func GetSeasonalAnime() ([]models.Anime, error) {
 // GetGenre returns the anime genre
 func GetGenres() ([]models.Genre, error) {
 	url := fmt.Sprintf("%s/genres/anime", config.JikanBaseURL)
-	var result []models.Genre
+	var result models.GenreListResponse
 	err := Fetch(url, &result)
 	if err != nil {
 		return nil, err
 	}
-	return result, nil
+	return result.Data, nil
+}
+
+// GetAnimeRecommendations
+func GetAnimeRecommendations(id int) ([]models.Recommendation, error) {
+	url := fmt.Sprintf("%s/anime/%d/recommendations", config.JikanBaseURL, id)
+	var result models.RecommendationResponse
+	err := Fetch(url, &result)
+	if err != nil {
+		return nil, err
+	}
+	return result.Data, nil
+}
+
+// GetAnimeByGenre takes in a genre and returns the anime for that genre
+func GetAnimeByGenre(genreID int) ([]models.Anime, error) {
+	url := fmt.Sprintf("%s/anime?genres=%d", config.JikanBaseURL, genreID)
+	var result models.AnimeListResponse
+	err := Fetch(url, &result)
+	if err != nil {
+		return nil, err
+	}
+	return result.Data, nil
+}
+
+// GetAnimeByID takes an ID and returns a pointer to *models.Anime
+func GetAnimeByID(id int) (*models.Anime, error) {
+	url := fmt.Sprintf("%s/anime/%d", config.JikanBaseURL, id)
+	var result models.SingleAnimeResponse
+	err := Fetch(url, &result)
+	if err != nil {
+		return nil, err
+	}
+	return &result.Data, nil
 }

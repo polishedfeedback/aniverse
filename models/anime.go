@@ -56,6 +56,18 @@ type Items struct {
 	PerPage int `json:"per_page"`
 }
 
+type RecommendationEntry struct {
+	MalID  int    `json:"mal_id"`
+	Title  string `json:"title"`
+	URL    string `json:"url"`
+	Images Image  `json:"images"`
+}
+
+type Recommendation struct {
+	Entry RecommendationEntry `json:"entry"`
+	Votes int                 `json:"votes"`
+}
+
 // Responses
 type SingleAnimeResponse struct {
 	Data Anime `json:"data"`
@@ -64,4 +76,12 @@ type SingleAnimeResponse struct {
 type AnimeListResponse struct {
 	Pagination Pagination `json:"pagination"`
 	Data       []Anime    `json:"data"`
+}
+
+type RecommendationResponse struct {
+	Data []Recommendation `json:"data"`
+}
+
+type GenreListResponse struct {
+	Data []Genre `json:"data"`
 }
