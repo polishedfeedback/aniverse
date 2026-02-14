@@ -1,16 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
-	"github.com/polishedfeedback/aniverse/services"
+	"github.com/polishedfeedback/aniverse/router"
 )
 
 func main() {
-	anime, err := services.SearchAnime("jujutsu kaisen")
+	r := router.SetupRouter()
+
+	err := r.Run(":3000")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(anime[0])
 }
